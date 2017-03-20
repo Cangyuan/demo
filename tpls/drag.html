@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>drag</title>
+</head>
+<style>
+	html,body{
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	#drag{
+		position: absolute;
+		/*top: 100px;
+		left: 100px;*/
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+</style>
+<body>
+	<div id="drag"></div>
+	<script>
+		window.onload = window.onresize = function(){
+			var oDrag = document.getElementById('drag');
+			oDrag.style.left = (document.body.clientWidth - oDrag.offsetWidth)/2 + "px";
+			oDrag.style.top = (document.body.clientHeight - oDrag.offsetHeight)/2 + "px";
+
+			dragg(oDrag);
+			function dragg(obj){
+				obj.onmousedown = function(event) {
+					/* Act on the event */
+					var event = event || window.event;
+					var oX = event.clientX - obj.offsetLeft;
+					var oY = event.clientY - obj.offsetTop;
+					if ( obj.setCapture ) {
+						obj.setCapture();
+					}
+					//alert(oX.toString()  + "||" + oY);
+					document.onmousemove = function(event){
+						var event = event || window.event;
+						var l = event.clientX - oX;
+						var t = event.clientY - oY;
+						if (l<0) {
+							l=0
+						} else if(l>document.documentElement.clientWidth - obj.offsetWidth) {
+							l = document.documentElement.clientWidth - obj.offsetWidth;
+						}
+						if (t<0) {
+							t=0
+						} else if(t>document.documentElement.clientHeight - obj.offsetHeight) {
+							t = document.documentElement.clientHeight - obj.offsetHeight;
+						}
+
+						obj.style.left = l +"px";
+						obj.style.top = t  +"px";
+					}
+					document.onmouseup = function(){
+						document.onmousedown = document.onmousemove = null;
+						if (obj.releaseCapture) {
+							obj.releaseCapture();
+						}
+					}
+				}
+				return false;
+			}
+		}
+
+	</script>
+</body>
+</html>

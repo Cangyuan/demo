@@ -4,10 +4,37 @@
 	<meta charset="UTF-8">
 	<title>demo</title>
 	<style>
+	*{
+				
+	}
+	html,body,ul,li,a{
+		font: 14px/1.6 "微软雅黑";
+		padding: 0;
+		margin: 0;
+	}
+	a{
+		text-decoration: none;
+	}
+	ul,li{
+		list-style: none;
+	}
 	body{
 		background: #fefefe;
 	}
 	header>h2{
+		text-align: center;
+	}
+	.d-main>ul{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.d-main>ul>li{
+		float: left;
+		width: 20%;
+	}
+	.d-main>ul>li>a{
+		display: block;
+		padding: 20px 0;
 		text-align: center;
 	}
 	</style>
@@ -16,11 +43,11 @@
 	<header>
 		<h2>demo小练习</h2>
 	</header>
-	<div>
+	<div class="d-main">
 		<ul>
 			<li><a href="tpls/digui.html">递归代码</a></li>
-			<li></li>
-			<li></li>
+			<li><a href="tpls/quchong.html">去重代码</a></li>
+			<li><a href="tpls/drag.html">拖拽</a></li>
 			<li></li>
 			<li></li>
 			<li></li>

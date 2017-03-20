@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>递归代码的实现</title>
+</head>
+<body>
+	<input type="text">
+
+<script>
+	// 阶乘函数start
+	function test(num){
+	    if(num <= 1){
+	        return 1;
+	    }else{
+	        return num * test(num-1);
+	    }
+	}
+	var a = test;
+	console.log(a(6));
+	// 阶乘函数end
+	//arguments.callee用法
+	//arguments.callee调用函数本身 
+	(function(n){
+
+		if(n > 1)	 return n* arguments.callee(n-1);
+
+		return n;
+
+	})(10);console.log();
+</script>
+</body>
+</html>
