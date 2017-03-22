@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	li{
+		list-style: none;
+	}
+	#box{
+		position: relative;
+		width: 500px;
+		height: 282px;
+		border: 2px solid #ff8888;
+		border-radius: 10px;
+		overflow: hidden;
+		margin: 100px auto;
+	}
+	#list{
+		position: relative;
+		width: 500px;
+		height: 282px;
+		/*border: 2px solid #ff8888;*/
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	#list li{
+
+	}
+	#list img{
+		width: 100%;
+		display: block;
+	}
+	#count{
+		position: absolute;
+		bottom: 10px;
+		right: 0;
+	}
+	#count li{
+		background: #fff;
+		border-radius: 50%;
+		float: left;
+		width: 10px;
+		height: 10px;
+		margin-right: 10px;
+	}
+	.active{
+		opacity: 1;
+	}
+	</style>
+</head>
+<body>
+<div id="box">
+	<ul id="list">	
+	</ul>
+	<ul id="count">
+	</ul>
+<script>
+
+	window.onload = function(){
+		var arr = [{
+			"img":"../imgs/1.jpg",
+			"count":"第一页"
+		},{
+			"img":"../imgs/2.jpg",
+			"count":"第二页"
+		},{
+			"img":"../imgs/3.jpg",
+			"count":"第三页"
+		},{
+			"img":"../imgs/4.jpg",
+			"count":"第四页"
+		},{
+			"img":"../imgs/5.jpg",
+			"count":"第五页"
+		}],
+		oList = document.getElementById('list'), 
+		oCount = document.getElementById('count'),
+		oUl = document.getElementsByTagName('ul'),
+		oLi = document.getElementsByTagName('li'),
+		oBig = oUl[0].getElementsByTagName('li'),
+		html1 = '',html2 = '',timer =null,index = 0;
+
+		for (var i = 0; i < arr.length; i++) {
+			html1 += '<li><img src="'+arr[i].img+'" alt=""/></li>';
+			html2 += '<li title = "' +arr[i].count+ '"></li>'
+		}
+		oList.innerHTML = html1;
+		oCount.innerHTML = html2;
+
+		play();
+		function play(){
+			timer = setInterval(function(){
+				index++;
+				if (index >= oList.length) {
+					index = 0;
+				}
+				show(index);
+			}, 1000);
+		}
+		function show(a){
+			for (var i = 0; i < oList.length; i++) {
+				oList[i].style.opacity = 0;
+			}
+			for (var j = 0; j < oBig.length; j++) {
+				oBig[j].className = "";
+			}
+			oBig[2].className = "active";
+
+
+		}
+
+
+	}
+</script>
+</div>	
+</body>
+</html>
