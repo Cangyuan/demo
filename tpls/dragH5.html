@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖放</title>
+	<style>
+	#div1{
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+	li{
+		width: 200px;
+		height: 30px;
+		background: yellow;
+		list-style: none;
+		margin-bottom: 8px;
+	}
+	</style>
+	<script>
+		window.onload = function(){
+			var oUl = document.getElementsByTagName('ul')[0];
+			var aLi = oUl.getElementsByTagName('li');
+			var oDiv = document.getElementById('div1');
+			var i=0;
+			
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].index = i;
+				aLi[i].ondragstart = function(ev){
+					var ev = ev || window.event;
+					ev.dataTransfer.setData('name',this.index);
+					ev.dataTransfer.effectAllowed = 'link';
+					ev.dataTransfer.setDragImage(oDiv,0,0);
+					this.style.background = 'green';
+					console.log(ev.dataTransfer);
+				}
+				aLi[i].ondragend = function(){
+					this.style.background = 'yellow';
+				}
+				aLi[i].ondrag = function(){
+					//document.title = i++;
+				}
+			}
+			oDiv.ondragenter = function(){
+				this.style.background = 'blue';
+			}
+			oDiv.ondragleave = function(){
+				this.style.background = 'red';
+			}
+			oDiv.ondragover = function(ev){
+				//要想触发drop，在dragover中要组织默认事件
+
+				ev.preventDefault();
+				//document.title = i++;
+			}
+			oDiv.ondrop = function(ev){
+				oUl.removeChild(aLi[ev.dataTransfer.getData('name')]);
+				for (var i = 0; i < aLi.length; i++) {
+					aLi[i].index = i;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<ul>
+		<li draggable='true'>a</li>
+		<li draggable='true'>b</li>
+		<li draggable='true'>c</li>
+	</ul>
+	<div id="div1"></div>
+</body>
+</html>
