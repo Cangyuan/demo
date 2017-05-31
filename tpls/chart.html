@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽购物车</title>
+	<style>
+	*{
+		padding: 0;
+		margin: 0;
+		
+	}
+	li{
+		list-style: none;
+		float: left;
+		width: 200px;
+		border:1px solid #ddd;
+		margin: 10px;
+	}
+	li img{
+		width: 100%;
+	}
+	p{
+		border-bottom: 1px dotted #ddd;
+		height: 20px;
+	}
+	#div1{
+		width: 600px;
+		border:1px solid #ddd;
+		height: 300px;
+		clear: both;
+		overflow: hidden;
+	}
+	.box1,.box2,.box3{
+		float: left;
+		width: 200px;
+	}
+	#all{
+		float: right;
+	}
+	</style>
+	<script>
+		window.onload = function(){
+			var oUl = document.getElementsByTagName("ul")[0],
+			obj = {},
+			oDiv1 = document.getElementById("div1"),
+			aLi = oUl.getElementsByTagName("li");
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].ondragstart = function(ev){
+					var aP = this.getElementsByTagName('p');
+					ev.dataTransfer.setData('title',aP[0].innerHTML);
+					ev.dataTransfer.setData('money',aP[1].innerHTML);
+					ev.dataTransfer.setDragImage(this,0,0);
+				}
+			}
+			oDiv1.ondragover = function (ev){
+				ev.preventDefault();
+			}
+			oDiv1.ondrop = function(ev){
+				ev.preventDefault();
+				var stitle = ev.dataTransfer.getData('title');
+				var smoney = ev.dataTransfer.getData('money');
+				if (!obj[stitle]) {
+					var oP = document.createElement("p");
+					var oSpan = document.createElement("span");
+					oSpan.className = 'box1';
+					oSpan.innerHTML = '1';
+					oP.appendChild(oSpan);
+
+					var stitle = ev.dataTransfer.getData('title');
+					var smoney = ev.dataTransfer.getData('money');
+					var oSpan = document.createElement("span");
+					oSpan.className = 'box2';
+					oSpan.innerHTML = stitle;
+					oP.appendChild(oSpan);
+
+					var stitle = ev.dataTransfer.getData('title');
+					var smoney = ev.dataTransfer.getData('money');
+					var oSpan = document.createElement("span");
+					oSpan.className = 'box3';
+					oSpan.innerHTML = smoney;
+					oP.appendChild(oSpan);
+
+					oDiv1.appendChild(oP)
+
+					obj[stitle] = 1
+
+					} else {
+						var box1 = document.getElementsByClassName('box1'),
+							box2 = document.getElementsByClassName('box2'),
+							box3 = document.getElementsByClassName('box3');
+							for (var i = 0; i < box2.length; i++) {
+								if (box2[i].innerHTML == stitle) {
+									box1[i].innerHTML = parseInt(box1[i].innerHTML) +1;
+								}
+							}
+					}
+				
+			}
+		}
+	</script>
+</head>
+<body>
+	<ul>
+		<li draggable='true'>
+			<img src="../imgs/1.jpg" alt="">
+			<p>1.jpg</p>
+			<p>$10</p>
+		</li>
+		<li draggable='true'>
+			<img src="../imgs/2.jpg" alt="">
+			<p>2.jpg</p>
+			<p>$20</p>
+		</li>
+		<li draggable='true'> 
+			<img src="../imgs/3.jpg" alt="">
+			<p>3.jpg</p>
+			<p>$30</p>
+		</li>
+		<li draggable='true'>
+			<img src="../imgs/4.jpg" alt="">
+			<p>4.jpg</p>
+			<p>$40</p>
+		</li>
+	</ul>
+	<div id="div1">
+		<div id="all">$30</div>
+	</div>
+</body>
+</html>
