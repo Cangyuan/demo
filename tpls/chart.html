@@ -42,6 +42,8 @@
 		window.onload = function(){
 			var oUl = document.getElementsByTagName("ul")[0],
 			obj = {},
+			iNum = 0,
+			allMoney = null,
 			oDiv1 = document.getElementById("div1"),
 			aLi = oUl.getElementsByTagName("li");
 			for (var i = 0; i < aLi.length; i++) {
@@ -94,6 +96,13 @@
 								}
 							}
 					}
+					if (!allMoney) {
+						allMoney = document.getElementById("all");
+						allMoney.id = 'all';
+						oDiv1.appendChild(allMoney)
+					}
+					iNum += parseFloat(sMoney);
+					allMoney.innerHTML = '$' + iNum
 				
 			}
 		}
@@ -123,7 +132,6 @@
 		</li>
 	</ul>
 	<div id="div1">
-		<div id="all">$30</div>
 	</div>
 </body>
 </html>
