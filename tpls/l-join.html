@@ -3,8 +3,211 @@
 <head>
 	<meta charset="UTF-8">
 	<title>向左无缝滚动</title>
+<style>
+	*{
+		padding: 0;margin: 0;
+	}
+	li{
+		list-style: none;
+	}
+	a{
+		text-decoration: none;
+	}
+	a:hover{
+		color: #ff8888;
+	}
+	#wrap{
+		position: relative;
+		width: 800px;
+		margin: 50px auto;
+		padding: 6px;
+		border: 5px solid #ff8888;
+		border-radius: 10px;
+	}
+	#banner{
+		width: 100%;		
+		overflow: hidden;
+	}
+	#b-box{
+		float: left;
+		width: 800%;
+		margin: 10px auto;
+		overflow: hidden;
+		position: relative;
+	}
+	#banner ul{
+		float: left;
+		overflow: hidden;
+		font-size: .8rem;
+	}
+	#banner ul li{
+		float: left;
+		width: 200px;
+		height: 100px;
+		padding: 10px;
+
+	}
+	#banner ul li a{
+		display:block;
+		height: 100px;
+		padding: 0 6px;
+		/* float: left; */
+		color: #2b2b2b;
+		background: red;
+		background: red;
+	}
+	#banner ul li span{
+		float: right;
+		color: #a6a6a6;
+	}
+	.btn{
+		width: 20px;
+	    height: 100px;
+	    background: #000;
+	    font-size: 24;
+	    position: absolute;
+	    z-index: 1000;
+	    text-align: center;
+	    color: #fff;
+	    line-height: 100px;
+	    background: rgba(0, 0, 0, 0.6);
+	    cursor: pointer;
+	    display: block;
+	    bottom: 0;
+	    top: 0;
+	    margin: auto;
+	}
+	.btn-l{
+		left: 0;
+	}
+	.btn-r{
+		right: 0;
+	}
+	</style>
 </head>
 <body>
-	
+<div id="wrap">
+<a href="javascript:;" class="btn btn-l">
+<	
+</a>
+<a href="javascript:;" class="btn btn-r">
+>	
+</a>
+	<div id="banner">
+		<div id="b-box">
+			<ul id="con1"></ul>
+			<ul id="con2"></ul>
+		</div>
+	</div>
+</div>
+<script>
+	var json = [{
+		"title":"元旦：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	},{
+		"title":"春节：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	},{
+		"title":"元宵节：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	},{
+		"title":"清明节：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	},{
+		"title":"情人节：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	},{
+		"title":"三八妇女节：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	},{
+		"title":"五一劳动节：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	},{
+		"title":"六一儿童节：1月1日至3日放假三天。",
+		"time":"2016-0-0"
+	}];
+	var area = document.getElementById("banner"),
+		c1 = document.getElementById("con1"),
+		c2 = document.getElementById("con2"),
+		l = document.getElementsByClassName("btn-l")[0],
+		r = document.getElementsByClassName("btn-r")[0],
+		btn = document.getElementsByClassName("btn"),
+		timer = null,
+		html = '',
+		myScroll = null;
+		sValue = {
+			'speed' :20,
+			'lwidth':220,
+			'delay':400,
+			'n':6
+		}
+	window.onload = function(){
+		render();
+		setTimeout(move, sValue.delay);
+	}
+	function render(){
+		for (var i = 0; i < json.length; i++) {
+			html += '<li><a href="javascript:;">' + json[i].title + '</a><span>' +json[i].time + '</span></li>';
+		}
+		c1.innerHTML = c2.innerHTML = html;
+	}
+	function move(){
+		area.scrollLeft++;
+		timer = setInterval(scrollL, sValue.speed);
+	}
+	function scrollL(){
+		if (area.scrollLeft % sValue.lwidth == 0) {
+			clearInterval(timer);
+			myScroll = setTimeout(move, sValue.delay);
+		} else {
+			area.scrollLeft++;
+			if (area.scrollLeft>= c1.offsetWidth) {
+				area.scrollLeft = 0;
+			}
+		}
+		
+	}
+	area.onmouseover = function(){
+		clearInterval(timer);
+		clearTimeout(myScroll);
+	}
+	area.onmouseout = function(){
+		clearInterval(timer);
+		myScroll = setTimeout(move, sValue.delay);
+	}
+	//左右悬停
+	for (var i = 0; i < btn.length; i++) {
+		btn[i].onmouseover = function(){
+			clearInterval(timer);
+			clearTimeout(myScroll);
+		}
+		btn[i].onmouseout = function(){
+			clearInterval(timer);
+			myScroll = setTimeout(move, sValue.delay);
+		}
+	}
+	//左事件
+	l.onclick = function(){
+		clearInterval(timer);
+    	clearTimeout(myScroll);
+    	area.scrollLeft += sValue.lwidth;
+    	if (area.scrollLeft>= c1.offsetWidth) {
+			area.scrollLeft = 0;
+		}else{
+			var timeOut = setTimeout(area.scrollLeft, sValue.delay);
+		}
+	}
+	//右事件
+	r.onclick = function(){
+		clearInterval(timer);
+    	clearTimeout(myScroll);
+    	area.scrollLeft -= sValue.lwidth;
+    	if (area.scrollLeft<= 0) {
+			area.scrollLeft = c1.offsetWidth;
+		}else{
+			var timeOut = setTimeout(area.scrollLeft, sValue.delay);
+		}
+	}
+</script>
 </body>
 </html>
