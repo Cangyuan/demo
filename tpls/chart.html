@@ -68,15 +68,15 @@
 					oSpan.innerHTML = '1';
 					oP.appendChild(oSpan);
 
-					var stitle = ev.dataTransfer.getData('title');
-					var smoney = ev.dataTransfer.getData('money');
+					// var stitle = ev.dataTransfer.getData('title');
+					// var smoney = ev.dataTransfer.getData('money');
 					var oSpan = document.createElement("span");
 					oSpan.className = 'box2';
 					oSpan.innerHTML = stitle;
 					oP.appendChild(oSpan);
 
-					var stitle = ev.dataTransfer.getData('title');
-					var smoney = ev.dataTransfer.getData('money');
+					// var stitle = ev.dataTransfer.getData('title');
+					// var smoney = ev.dataTransfer.getData('money');
 					var oSpan = document.createElement("span");
 					oSpan.className = 'box3';
 					oSpan.innerHTML = smoney;
@@ -97,13 +97,13 @@
 							}
 					}
 					if (!allMoney) {
-						allMoney = document.getElementById("all");
+						allMoney = document.createElement("div");
 						allMoney.id = 'all';
-						oDiv1.appendChild(allMoney)
+						
 					}
-					iNum += parseFloat(sMoney);
-					allMoney.innerHTML = '$' + iNum
-				
+					iNum += parseInt(smoney);
+					allMoney.innerHTML = iNum +'￥';	
+					oDiv1.appendChild(allMoney)			
 			}
 		}
 	</script>
@@ -113,22 +113,22 @@
 		<li draggable='true'>
 			<img src="../imgs/1.jpg" alt="">
 			<p>1.jpg</p>
-			<p>$10</p>
+			<p>10￥</p>
 		</li>
 		<li draggable='true'>
 			<img src="../imgs/2.jpg" alt="">
 			<p>2.jpg</p>
-			<p>$20</p>
+			<p>20￥</p>
 		</li>
 		<li draggable='true'> 
 			<img src="../imgs/3.jpg" alt="">
 			<p>3.jpg</p>
-			<p>$30</p>
+			<p>30￥</p>
 		</li>
 		<li draggable='true'>
 			<img src="../imgs/4.jpg" alt="">
 			<p>4.jpg</p>
-			<p>$40</p>
+			<p>40￥</p>
 		</li>
 	</ul>
 	<div id="div1">
